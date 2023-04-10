@@ -1,0 +1,6 @@
+wandb
+git+https://github.com/tinkoff-ai/d4rl@master#egg=d4rl
+mujoco-py<2.2,>=2.1
+dacite
+pyyaml
+fire
