@@ -1,0 +1,25 @@
+project: TLab-Application-v0
+group: AWAC-antmaze-umaze
+name: seed-0
+preprocess:
+  normalize_reward: false
+  std_eps: 0.001
+eval:
+  evaluate_every_n: 5000
+  eval_episodes: 100
+train:
+  env_name: antmaze-umaze-v0
+  batch_size: 256
+  buffer_size: 2000000
+  max_steps: 50000
+  seed: 0
+  save_path: awac_offline_antmaze_umaze_0.pt
+finetune:
+  batch_size: 256
+  max_steps: 1000000
+  save_path: awac_online_antmaze_umaze_0.pt
+algorithm:
+  alpha: 0.005
+  tau: 1.0
+  gamma: 0.99
+  max_weight: 100.0

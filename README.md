@@ -30,6 +30,15 @@
 Скрипты для настройки локальной машины не предоставляются, можно попробовать воспользоваться https://github.com/tinkoff-ai/CORL/blob/main/Dockerfile
 
 
+## Запуск обучения
+
+Чтобы запустить обучение локально, можно использовать команду
+```
+python3 iql.py --yaml_path=configs/iql/antmaze_medium_seed_0.yaml
+```
+В ``yaml_path`` через аргумент командной строки может передаваться путь до .yaml с конфигурацией
+
+
 Реализация вдохновлена https://github.com/tinkoff-ai/CORL и имплементациями:
 * https://github.com/ikostrikov/jaxrl
 * https://github.com/ikostrikov/implicit_q_learning
