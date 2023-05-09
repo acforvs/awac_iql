@@ -497,14 +497,14 @@ class PrintLogger(BaseLogger):
 
 class EvaluationMixin:
     """
-    Подмешивает функционал оценки политики
-    Для успешной работы должны быть определены:
-        self._env: gym.Env, среда, в которой работает алгоритм
-        self._logger: None | BaseLogger, подмешивает функционал логгирования normalized_score
-        self.steps: int, текущее число шагов но только если self._logger не None
-        self.eval: func, основной класс должен быть отнаследован от nn.Module
-        self.train: func, основной класс должен быть отнаследован от nn.Module
-        self.act, func, выбор следующего действия по состоянию
+    Adds functionality of a policy evaluation
+    The following methods must be defined:
+        self._env: gym.Env, current environment
+        self._logger: None | BaseLogger, adds logging functionality (reports normalized_score) 
+        self.steps: int, current number of steps, required if self._logger is not None
+        self.eval: func, the base class must be inherited from nn.Module
+        self.train: func, the base class must be inherited from nn.Module
+        self.act, func, selects the next action based on an observation
     """
 
     @torch.no_grad()
@@ -533,16 +533,16 @@ class EvaluationMixin:
 
 class OfflinePretrainMixin(EvaluationMixin):
     """
-    Подмешивает функционал Offline претрейна
-    Добавляет следующие атрибуты:
-        self._env: gym.Env, конструируется при .setup_env
-        self._action_dim & self._state_dim: int, конструируется при .setup_env, размерности пространств
-        self._logger: BaseLogger | None, конструируется при запуске .run_offline
-        self._replay_buffer: ReplayBuffer, создается при .run_offline
-    Для успешной работы должны быть определены:
-        self.act: func, выбирает следующее действие по состоянию
-        self.update: func, обновляет алгоритм, принимая на вход batch из буфера
-        self.steps: int, только при наличии логера
+    Adds functionality of an offline pretrain
+    Adds the following attributes:
+        self._env: gym.Env, initialized during .setup_env
+        self._action_dim & self._state_dim: int, initialized during .setup_env, dims
+        self._logger: BaseLogger | None, initialized during .run_offline
+        self._replay_buffer: ReplayBuffer, initialized during .run_offline
+    The following methods must be defined:
+        self.act: func, selects the next action based on an observation
+        self.update: func, updates the algorithm, takes single batch from replay buffer
+        self.steps: int, current number of steps, required if self._logger is not None
     """
 
     @staticmethod
@@ -658,15 +658,15 @@ class OfflinePretrainMixin(EvaluationMixin):
 
 class OnlineFineTuneMixin(EvaluationMixin):
     """
-    Подмешивает функционал online finetune
-    Полагается на наличие следующих атрибутов:
+    Adds functionality of an online finetuning
+    The following attributed must be defined:
         self._env: gym.Env
         self._logger: BaseLogger | None
         self._replay_buffer: ReplayBuffer
-    Для успешной работы должны быть определены:
-        self.act: func, выбирает следующее действие по состоянию
-        self.update: func, обновляет алгоритм, принимая на вход batch из буфера
-        self.steps: int, только при наличии логера
+    The following methods must be defined:
+        self.act: func, selects the next action based on an observation
+        self.update: func, updates the algorithm, takes single batch from replay buffer
+        self.steps: int, current number of steps, required if self._logger is not None
     """
 
     def run_online(self, config: TrainConfig, logger: BaseLogger | None = None):
