@@ -445,7 +445,7 @@ class EvaluationMixin:
     Adds functionality of a policy evaluation
     The following methods must be defined:
         self._env: gym.Env, current environment
-        self._logger: None | BaseLogger, adds logging functionality (reports normalized_score) 
+        self._logger: None | BaseLogger, adds logging functionality (reports normalized_score)
         self.steps: int, current number of steps, required if self._logger is not None
         self.eval: func, the base class must be inherited from nn.Module
         self.train: func, the base class must be inherited from nn.Module

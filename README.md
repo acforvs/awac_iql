@@ -1,16 +1,17 @@
-## Offline RL
+## Offline RL: AWAC & IQL
 
-В этом репозитории представлены два алгоритма:
-* AWAC (awac.py, awac.ipynb)
-* IQL (iql.py, iql.ipynb)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)
+![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
+
+This repository contains a PyTorch implementation of two offline reinforcement learning algorithms:
+1. AWAC: Accelerating Online Reinforcement Learning with Offline Datasets
+2. Offline Reinforcement Learning with Implicit Q-Learning
 
 
-.ipynb файлы рекомендуется запускать в Google colab
+### Installation
 
-Для успешной работы .py на локальной машине должен быть настроен d4rl и mujoco.
-
-Для этого можно попробовать сделать следующее:
-```
+Each algorithm is provided in two versions: a `.py` file and an `.ipynb` notebook. It is recommended to run the IPython versions directly in Google Colab. For the `.py` file to work, you need to install and set up `d4rl` and `mujoco` on your local machine. You can use the following command for installation:
+```bash
  apt-get -qq update
  apt-get -qq install -y libosmesa6-dev libgl1-mesa-glx libglfw3 libgl1-mesa-dev libglew-dev patchelf
  mkdir ~/.mujoco
@@ -24,22 +25,23 @@
  pip3 install -U 'mujoco-py<2.2,>=2.1'
  touch .mujoco_setup_complete
 ```
+Please note that we cannot guarantee that this script will successfully install all the required libraries on your local machine. If any values are missing in your `~/.bashrc` file, an error will be reported upon launching.
 
-Если после этого будет не хватать каких-то прописанных значений в bashrc, код при запуске должен упасть с ошибкой, которая говорит, как это можно исправить
+To set up your local machine, you can also consider using the Dockerfile available at: https://github.com/tinkoff-ai/CORL/blob/main/Dockerfile
 
-Скрипты для настройки локальной машины не предоставляются, можно попробовать воспользоваться https://github.com/tinkoff-ai/CORL/blob/main/Dockerfile
+### Training
 
-
-## Запуск обучения
-
-Чтобы запустить обучение локально, можно использовать команду
+To run training locally, execute the following command:
 ```
 python3 iql.py --yaml_path=configs/iql/antmaze_medium_seed_0.yaml
 ```
-В ``yaml_path`` через аргумент командной строки может передаваться путь до .yaml с конфигурацией
+Ensure that the `yaml_path` parameter contains the path to the `.yaml` file with the desired configuration.
 
 
-Реализация вдохновлена https://github.com/tinkoff-ai/CORL и имплементациями:
+### Credits
+
+This implementation draws significant inspiration from the following repositories:
+* https://github.com/tinkoff-ai/CORL 
 * https://github.com/ikostrikov/jaxrl
 * https://github.com/ikostrikov/implicit_q_learning
 * https://github.com/rail-berkeley/rlkit/tree/master/examples/iql
